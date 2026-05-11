@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "MenuItem": {
+      "title": "MenuItem",
+      "description": "A food item in the bento box menu",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the bento" },
+        "price": { "type": "number", "description": "The price of the bento" },
+        "description": { "type": "string", "description": "Description of the bento items" },
+        "imageUrl": { "type": "string", "description": "Link to the bento image" }
+      },
+      "required": ["name", "price"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "customerName": { "type": "string", "description": "Name of the customer" },
+        "items": {
+          "type": "array",
+          "description": "List of items in the order",
+          "items": {
+            "type": "object",
+            "properties": {
+              "menuItemId": { "type": "string" },
+              "name": { "type": "string" },
+              "price": { "type": "number" },
+              "quantity": { "type": "number" }
+            }
+          }
+        },
+        "totalAmount": { "type": "number", "description": "Total price of the order" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "preparing", "ready", "completed", "cancelled"],
+          "description": "Current status of the order"
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerName", "items", "totalAmount", "status", "createdAt", "updatedAt"]
+    },
+    "AdminSettings": {
+      "title": "AdminSettings",
+      "description": "Global application settings for admin",
+      "type": "object",
+      "properties": {
+        "adminPassword": { "type": "string", "description": "Hashed password for admin access" },
+        "isSetupComplete": { "type": "boolean", "description": "Whether the admin password has been set" }
+      },
+      "required": ["adminPassword", "isSetupComplete"]
+    }
+  },
+  "firestore": {
+    "/menuItems/{itemId}": {
+      "schema": "MenuItem",
+      "description": "Collection of bento menu items"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of customer orders"
+    },
+    "/settings/admin": {
+      "schema": "AdminSettings",
+      "description": "Document for admin settings"
+    }
+  }
+}
