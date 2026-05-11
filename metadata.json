@@ -1,0 +1,6 @@
+{
+  "name": "正忠便當點單系統",
+  "description": "提供前台點餐與後台管理的功能，包含密碼保護的後台管理介面，資料存儲於 Firebase。",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
